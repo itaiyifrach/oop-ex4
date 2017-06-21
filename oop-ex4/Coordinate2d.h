@@ -22,8 +22,11 @@ public:
 	{
 		if (arr[0] < other.arr[0])
 			return true;
-		return (arr[1] <= other.arr[1]);
+		if (arr[0] > other.arr[0])
+			return false;
+		return (arr[1] <= other.arr[1]);		
 	}
+
 	const int& operator [] (int index) const
 	{
 		return arr[index];

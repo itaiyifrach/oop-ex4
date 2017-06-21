@@ -4,7 +4,7 @@
 #include <memory>
 #include <list>
 #include <map>
-#include "Coordinate.h"
+#include "Coordinate2d.h"
 
 using namespace std;
 

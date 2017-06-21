@@ -24,13 +24,17 @@ public:
 	{
 		if (arr[0] < other.arr[0])
 			return true;
-		if (arr[1] < other.arr[1])
-			return true;
-		return (arr[2] <= other.arr[2]);
-	}
-	const int& operator [] (int index) const
-	{
-		return arr[index];
+		else if (arr[0] > other.arr[0])
+			return false;
+		else
+		{
+			if (arr[1] < other.arr[1])
+				return true;
+			else if (arr[1] > other.arr[1])
+				return false;
+			return (arr[2] <= other.arr[2]);
+		}
+
 	}
 
 };
