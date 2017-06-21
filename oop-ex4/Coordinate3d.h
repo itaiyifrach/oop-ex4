@@ -37,4 +37,9 @@ public:
 
 	}
 
+	const int& operator [] (int index) const
+	{
+		return arr[index];
+	}
+
 };

@@ -89,31 +89,66 @@ public:
 	std::function mapping;
 	matrix2d ezer;
 
-	void buidGroup(list& group, Coordinate coor) {
+	void buidGroup(list& group, Coordinate2d coor) {
 		if ((mapping(coor.x, coor.y) == (mapping(coor.x - 1, coor.y)) && (ezer[coor.x - 1, coor.y] == 0)) {
 			group.emplace_back(coor.x - 1, coor.y);
 			ezer[coor.x - 1, coor.y] = 1;
-			buidGroup(group, Coordinate(coor.x - 1, coor.y));
+			buidGroup(group, Coordinate2d(coor.x - 1, coor.y));
 		}
 		if ((mapping(coor.x, coor.y) == (mapping(coor.x + 1, coor.y)) && (ezer[coor.x + 1, coor.y] == 0)) {
 			group.emplace_back(coor.x + 1, coor.y);
 			ezer[coor.x + 1, coor.y] = 1;
-			buidGroup(group, Coordinate(coor.x + 1, coor.y));
+			buidGroup(group, Coordinate2d(coor.x + 1, coor.y));
 		}
 		if ((mapping(coor.x, coor.y) == (mapping(coor.x, coor.y - 1)) && (ezer[coor.x, coor.y - 1] == 0)) {
 			group.emplace_back(coor.x, coor.y - 1);
 			ezer[coor.x, coor.y - 1] = 1;
-			buidGroup(group, Coordinate(coor.x, coor.y - 1));
+			buidGroup(group, Coordinate2d(coor.x, coor.y - 1));
 		}
 		if ((mapping(coor.x, coor.y) == (mapping(coor.x, coor.y + 1)) && (ezer[coor.x, coor.y + 1] == 0)) {
 			group.emplace_back(coor.x, coor.y + 1);
 			ezer[coor.x, coor.y + 1] = 1;
-			buidGroup(group, Coordinate(coor.x, coor.y + 1));
+			buidGroup(group, Coordinate2d(coor.x, coor.y + 1));
 		}
-	}
+
+
+		next_coor = curr_coor;
+		for (int& dim_val : next_coor) {
+			dim_val++;
+			if ((mapping(curr_coor) == (mapping(next_coor) && (ezer[next_coor] == 0)) {
+				group.emplace_back(next_coor);
+				ezer[next_coor] = 1;
+				buildGroup(group, next_coor);
+			}
+			dim_val = dim_val - 2;
+			if ((mapping(curr_coor) == (mapping(coor[i].set(coor[i] - 1)) && (ezer[coor.x - 1, coor.y] == 0)) {
+				group.emplace_back(coor.x - 1, coor.y);
+				ezer[coor.x - 1, coor.y] = 1;
+				buidGroup(group, Coordinate2d(coor.x - 1, coor.y));
+			}
+			dim_val++;
+		}
+
+
+
+
+		for (i:1..n))
+		{
+			if ((mapping(coor) == (mapping(coor[i].set(coor[i]-1)) && (ezer[coor.x - 1, coor.y] == 0)) {
+				group.emplace_back(coor.x - 1, coor.y);
+				ezer[coor.x - 1, coor.y] = 1;
+				buidGroup(group, Coordinate2d(coor.x - 1, coor.y));
+			}
+		}	
 
 	friend std::ostream& operator<<(std::ostream& out, const Matrix& m) {
 		MatrixPrinter<T, DIMENSIONS>::print(m._array.get(), m._size, m._dimensions, out);
 		return out;
 	}
 };
+
+
+
+
+
+for ()
