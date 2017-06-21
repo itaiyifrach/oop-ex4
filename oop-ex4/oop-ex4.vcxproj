@@ -113,6 +113,8 @@
     <ClCompile Include="Matrix2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Coordinate2d.h" />
+    <ClInclude Include="Coordinate3d.h" />
     <ClInclude Include="Matrix2d.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
