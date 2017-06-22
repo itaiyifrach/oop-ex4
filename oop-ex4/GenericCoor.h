@@ -5,29 +5,30 @@
 using namespace std;
 
 template <size_t DIM>
-class Coordinate
+class GenericCoor
 {
 public:
-	int arr[DIM];
-	Coordinate(const std::initializer_list<int>& values)
+
+	//initializer list c'tor
+	GenericCoor(const std::initializer_list<int>& values)
 	{
 		int i = 0;
-		for (auto& cor : values)
-			arr[i++] = cor;
+		for (auto& coor : values)
+			arr[i++] = coor;
 	}
-
-	Coordinate(int values[])
+	//array c'tor
+	GenericCoor(int values[])
 	{
 		for (size_t i = 0; i<DIM; i++)
 			arr[i] = values[i];
 	}
 
-
-	Coordinate<DIM> copyAndChangeCor(int cor, int value)
+	//helper function for group search
+	GenericCoor<DIM> copyAndChangeCoor(int coor, int value)
 	{
-		Coordinate<DIM> newCor(arr);
-		newCor[cor] = value;
-		return newCor;
+		GenericCoor<DIM> newCoor(arr);
+		newCoor[coor] = value;
+		return newCoor;
 	}
 
 	const int* begin() const
@@ -40,7 +41,7 @@ public:
 		return arr + DIM;
 	}
 
-	bool operator < (const Coordinate<DIM> & other) const
+	bool operator < (const GenericCoor<DIM> & other) const
 	{
 		for (size_t i = 0; i < DIM; i++)
 		{
@@ -64,7 +65,7 @@ public:
 	}
 
 
-	friend std::ostream& operator<<(std::ostream& out, const Coordinate<DIM>& cor)
+	friend std::ostream& operator<<(std::ostream& out, const GenericCoor<DIM>& cor)
 	{
 		size_t i = 0;
 		for (; i<DIM - 1; i++)
@@ -72,5 +73,8 @@ public:
 		out << cor.arr[i];
 		return out;
 	}
+
+private:
+	int arr[DIM];
 
 };

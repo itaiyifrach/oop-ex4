@@ -29,7 +29,7 @@
     <ClInclude Include="Coordinate3d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Coordinate.h">
+    <ClInclude Include="GenericCoor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
