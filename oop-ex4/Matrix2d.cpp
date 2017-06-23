@@ -60,6 +60,8 @@ using Matrix3d = Matrix<T, 3>;
 // defining IntVector as Matrix<int, 1>
 using IntVector = Matrix<int, 1>;
 
+using Coordinate = GenericCoor<2>;
+
 int main() {
 	Matrix<int, 1> m0 = { 25, 10, 15 };
 	cout << m0 << endl;
