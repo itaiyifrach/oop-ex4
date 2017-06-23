@@ -18,6 +18,13 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Coordinate.h" />
+    <ClInclude Include="Matrix.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BD265620-2370-4FA1-89BB-147052A7F763}</ProjectGuid>
     <RootNamespace>oopex4</RootNamespace>
@@ -109,16 +116,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Matrix2d.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GenericCoor.h" />
-    <ClInclude Include="Coordinate2d.h" />
-    <ClInclude Include="Coordinate3d.h" />
-    <ClInclude Include="group.h" />
-    <ClInclude Include="Matrix2d.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
