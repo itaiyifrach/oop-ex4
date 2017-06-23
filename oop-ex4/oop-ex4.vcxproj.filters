@@ -32,5 +32,8 @@
     <ClInclude Include="GenericCoor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="group.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
