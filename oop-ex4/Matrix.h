@@ -8,6 +8,55 @@
 
 using namespace std;
 
+
+
+// helper classes
+template<class T, size_t DIMENSIONS>
+struct MatrixCopier {
+	static void copy(T* dest, size_t dest_size, const size_t* dest_dimensions, const T* source, size_t source_size, const size_t* source_dimensions) {
+		size_t dest_size0 = dest_dimensions[0] ? dest_size / dest_dimensions[0] : 0;
+		size_t source_size0 = source_dimensions[0] ? source_size / source_dimensions[0] : 0;
+		for (size_t i = 0; i < source_dimensions[0]; ++i) {
+			MatrixCopier<T, DIMENSIONS - 1>::copy(dest + (i * dest_size0), dest_size0, dest_dimensions + 1, source + (i * source_size0), source_size0, source_dimensions + 1);
+		}
+	}
+};
+
+template<class T>
+struct MatrixCopier<T, 1> {
+	static void copy(T* dest, size_t dest_size, const size_t* dest_dimensions, const T* source, size_t source_size, const size_t* source_dimensions) {
+		for (size_t i = 0; i < source_size; ++i) {
+			dest[i] = source[i];
+		}
+	}
+};
+
+template<class T, size_t DIMENSIONS>
+struct MatrixPrinter {
+	static void print(const T* values, size_t size, const size_t* dimensions, std::ostream& out = cout) {
+		out << '{';
+		size_t size0 = size / dimensions[0];
+		MatrixPrinter<T, DIMENSIONS - 1>::print(values, size0, dimensions + 1, out);
+		for (size_t i = 1; i < dimensions[0]; ++i) {
+			out << ',';
+			MatrixPrinter<T, DIMENSIONS - 1>::print(values + (i*size0), size0, dimensions + 1, out);
+		}
+		out << '}';
+	}
+};
+
+template<class T>
+struct MatrixPrinter<T, 1> {
+	static void print(const T* values, size_t size, const size_t* dimensions, std::ostream& out = cout) {
+		out << '{';
+		out << values[0];
+		for (size_t i = 1; i < size; ++i) {
+			out << ',' << values[i];
+		}
+		out << '}';
+	}
+};
+/************************************************************************************************************/
 //generic Matrix class
 template<class T, size_t DIMENSIONS>
 class Matrix {
@@ -161,7 +210,7 @@ public:
 		{
 			Coordinate<DIMENSIONS> next = coor;
 			if (coor[dim] < static_cast<int>(_dimensions[dim]-1)) {
-				next[dim]++;
+				++next[dim];
 				if ((markChecked[next] == 0) &&
 					(groupingFunc(this->operator[](coor)) ==
 					groupingFunc(this->operator[](next))))
@@ -170,10 +219,10 @@ public:
 					markChecked[next] = 1;
 					buildGroup(group, next, groupingFunc, markChecked);
 				}
-				next[dim]--;
+				--next[dim];
 			}
 			if (coor[dim] > 0) {
-				next[dim]--;
+				--next[dim];
 				if ((markChecked[next] == 0) &&
 					(groupingFunc(this->operator[](coor)) ==
 					groupingFunc(this->operator[](next))))
@@ -182,7 +231,7 @@ public:
 					markChecked[next] = 1;
 					buildGroup(group, next, groupingFunc, markChecked);
 				}
-				next[dim]++;
+				++next[dim];
 			}
 		}
 	}
@@ -231,51 +280,3 @@ static void print(const Groups& all_groups) {
 	}
 }
 
-/************************************************************************************************************/
-
-// helper classes
-template<class T, size_t DIMENSIONS>
-struct MatrixCopier {
-	static void copy(T* dest, size_t dest_size, const size_t* dest_dimensions, const T* source, size_t source_size, const size_t* source_dimensions) {
-		size_t dest_size0 = dest_dimensions[0] ? dest_size / dest_dimensions[0] : 0;
-		size_t source_size0 = source_dimensions[0] ? source_size / source_dimensions[0] : 0;
-		for (size_t i = 0; i < source_dimensions[0]; ++i) {
-			MatrixCopier<T, DIMENSIONS - 1>::copy(dest + (i * dest_size0), dest_size0, dest_dimensions + 1, source + (i * source_size0), source_size0, source_dimensions + 1);
-		}
-	}
-};
-
-template<class T>
-struct MatrixCopier<T, 1> {
-	static void copy(T* dest, size_t dest_size, const size_t* dest_dimensions, const T* source, size_t source_size, const size_t* source_dimensions) {
-		for (size_t i = 0; i < source_size; ++i) {
-			dest[i] = source[i];
-		}
-	}
-};
-
-template<class T, size_t DIMENSIONS>
-struct MatrixPrinter {
-	static void print(const T* values, size_t size, const size_t* dimensions, std::ostream& out = cout) {
-		out << '{';
-		size_t size0 = size / dimensions[0];
-		MatrixPrinter<T, DIMENSIONS - 1>::print(values, size0, dimensions + 1, out);
-		for (size_t i = 1; i < dimensions[0]; ++i) {
-			out << ',';
-			MatrixPrinter<T, DIMENSIONS - 1>::print(values + (i*size0), size0, dimensions + 1, out);
-		}
-		out << '}';
-	}
-};
-
-template<class T>
-struct MatrixPrinter<T, 1> {
-	static void print(const T* values, size_t size, const size_t* dimensions, std::ostream& out = cout) {
-		out << '{';
-		out << values[0];
-		for (size_t i = 1; i < size; ++i) {
-			out << ',' << values[i];
-		}
-		out << '}';
-	}
-};
